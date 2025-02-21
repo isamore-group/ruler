@@ -22,7 +22,7 @@ pub mod test {
 
     use crate::Bv;
 
-    fn gen() -> (Ruleset<Bv>, Duration) {
+    fn generate() -> (Ruleset<Bv>, Duration) {
         let start = Instant::now();
         let mut rules: Ruleset<Bv> = Ruleset::default();
         let lang = Lang::new(
@@ -69,8 +69,8 @@ pub mod test {
         let ported_bv4_rules: Ruleset<Bv> = Ruleset::new(actual_bv4_rules.to_str_vec());
 
         // Generate the rules directly
-        let (gen, gen_time): (Ruleset<Bv>, Duration) = gen();
+        let (generate, gen_time): (Ruleset<Bv>, Duration) = generate();
 
-        logger::write_bv_derivability(domain, gen, gen_time, ported_bv4_rules)
+        logger::write_bv_derivability(domain, generate, gen_time, ported_bv4_rules)
     }
 }

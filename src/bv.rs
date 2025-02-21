@@ -102,9 +102,9 @@ impl<const N: Inner> fmt::Display for BV<N> {
     }
 }
 
-impl<const N: Inner> Distribution<BV<N>> for rand::distributions::Standard {
+impl<const N: Inner> Distribution<BV<N>> for rand::distr::StandardUniform {
     fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> BV<N> {
-        let inner: Inner = rng.gen();
+        let inner: Inner = rng.random();
         inner.into()
     }
 }

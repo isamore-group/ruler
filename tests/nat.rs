@@ -1,7 +1,7 @@
 use num::{BigInt, Zero};
 use num_bigint::ToBigInt;
 use rand::{Rng, SeedableRng};
-use rand_pcg::Pcg64;
+use rand_pcg::{Pcg64, Pcg64Mcg};
 use ruler::*;
 use z3::ast::Ast;
 
@@ -97,13 +97,13 @@ impl SynthLanguage for Nat {
     }
 
     fn initialize_vars(egraph: &mut EGraph<Self, SynthAnalysis>, vars: &[String]) {
-        let mut rng = Pcg64::seed_from_u64(0);
+        let mut rng = Pcg64Mcg::seed_from_u64(0);
         egraph.analysis.cvec_len = 10;
         for v in vars {
             let id = egraph.add(Nat::Var(Symbol::from(v)));
             let mut vals = vec![];
             for _ in 0..egraph.analysis.cvec_len {
-                vals.push(Some(rng.gen::<u64>().to_bigint().unwrap()));
+                vals.push(Some(rng.random::<u64>().to_bigint().unwrap()));
             }
             egraph[id].data.cvec = vals.clone();
         }

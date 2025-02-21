@@ -39,7 +39,7 @@ impl<L: SynthLanguage> Signature<L> {
 impl<L: SynthLanguage> Analysis<L> for SynthAnalysis {
     type Data = Signature<L>;
 
-    fn make(egraph: &EGraph<L, Self>, enode: &L) -> Self::Data {
+    fn make(egraph: &mut EGraph<L, Self>, enode: &L) -> Self::Data {
         let get_cvec = |id: &Id| &egraph[*id].data.cvec;
         let get_interval = |id: &Id| &egraph[*id].data.interval;
         let get_simplest = |i: &Id| &egraph[*i].data.simplest;
