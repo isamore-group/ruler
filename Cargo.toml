@@ -1,5 +1,5 @@
 [package]
-name = "ruler"
+name = "enumo"
 version = "0.1.0"
 authors = ["Max Willsey <me@mwillsey.com>", "Chandrakana Nandi <cnandi@cs.washington.edu>"]
 edition = "2024"
