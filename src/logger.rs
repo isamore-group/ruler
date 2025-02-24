@@ -14,8 +14,8 @@ use crate::{count_lines, enumo::Ruleset, DeriveType, Limits, Phase, SynthLanguag
  * the array, and writes it back to the file
  */
 fn add_json_to_file(json: Value) {
-    let path = "nightly/data/output.json";
-    std::fs::create_dir_all("nightly/data").unwrap_or_else(|e| panic!("Error creating dir: {}", e));
+    let path = "__temp/enumo/data/output.json";
+    std::fs::create_dir_all("__temp/enumo/data").unwrap_or_else(|e| panic!("Error creating dir: {}", e));
 
     OpenOptions::new()
         .read(true)
