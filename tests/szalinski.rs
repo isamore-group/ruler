@@ -1,6 +1,6 @@
 // Learn Szalinski rules by lowering to FRep
 // Status: frozen. Develop on szalinski-dev.rs instead.
-use ruler::{
+use ::enumo::{
     enumo::{Metric, Ruleset},
     recipe_utils::iter_metric,
     *,
@@ -229,7 +229,7 @@ fn export_print(rs: &Ruleset<CF>) {
 
 #[cfg(test)]
 mod tests {
-    use ruler::{
+    use ::enumo::{
         enumo::{Ruleset, Workload},
         recipe_utils::run_fast_forwarding,
     };

@@ -2,7 +2,7 @@ use egg::Rewrite;
 use num::{
     rational::Ratio, CheckedAdd, CheckedDiv, CheckedMul, CheckedSub, Signed, ToPrimitive, Zero,
 };
-use ruler::{
+use ::enumo::{
     enumo::{Rule, Ruleset, Scheduler, Workload},
     *,
 };
@@ -640,7 +640,7 @@ pub mod test {
     use crate::rational_best::best_enumo_recipe;
     use crate::rational_replicate::replicate_ruler1_recipe;
     use num::rational::Ratio;
-    use ruler::{
+    use ::enumo::{
         enumo::{Ruleset, Workload},
         recipe_utils::{base_lang, iter_metric, run_workload},
     };

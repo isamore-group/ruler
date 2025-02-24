@@ -1,5 +1,5 @@
 use super::*;
-use ruler::{
+use ::enumo::{
     enumo::{Filter, Metric, Ruleset, Workload},
     recipe_utils::{base_lang, iter_metric, recursive_rules, run_workload, Lang},
 };

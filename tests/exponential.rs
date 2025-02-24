@@ -6,7 +6,7 @@ use std::time::Instant;
 
 use num::rational::Ratio;
 use num::BigInt;
-use ruler::*;
+use ::enumo::*;
 #[path = "./recipes/exponential.rs"]
 pub mod exponential;
 // mod rational;
@@ -116,7 +116,7 @@ impl SynthLanguage for Exponential {
 mod test {
     use super::*;
     use crate::exponential::make_rules;
-    use ruler::enumo;
+    use ::enumo::enumo;
 
     type Ruleset = enumo::Ruleset<Exponential>;
 

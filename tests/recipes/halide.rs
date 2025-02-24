@@ -1,4 +1,4 @@
-use ruler::{
+use enumo::{
     enumo::{Filter, Metric, Ruleset, Workload},
     recipe_utils::{recursive_rules, run_workload, Lang},
     Limits,

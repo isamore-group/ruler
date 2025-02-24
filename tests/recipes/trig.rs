@@ -1,6 +1,6 @@
 use super::*;
 use crate::test::prior_rules;
-use ruler::{
+use ::enumo::{
     enumo::{Filter, Ruleset, Workload},
     recipe_utils::run_fast_forwarding,
     Limits,

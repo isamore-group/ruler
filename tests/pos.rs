@@ -6,7 +6,7 @@
  * Example: 6 is represented as (XO (XI XH))
  * See https://coq.inria.fr/library/Coq.Numbers.BinNums.html
  */
-use ruler::{enumo::Ruleset, *};
+use ::enumo::{enumo::Ruleset, *};
 
 egg::define_language! {
  pub enum Pos {
@@ -111,7 +111,7 @@ impl SynthLanguage for Pos {
 
 #[cfg(test)]
 mod tests {
-    use ruler::{
+    use ::enumo::{
         enumo::{Filter, Metric, Ruleset, Scheduler, Workload},
         recipe_utils::{base_lang, iter_metric, run_fast_forwarding},
     };

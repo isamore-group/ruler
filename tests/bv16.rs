@@ -2,7 +2,7 @@
 16 bit implementation of Bitvectors.
 !*/
 
-ruler::impl_bv!(16);
+::enumo::impl_bv!(16);
 
 #[path = "./recipes/bv4_fancy.rs"]
 pub mod bv4_fancy;
@@ -13,7 +13,7 @@ pub mod test {
 
     use crate::bv4_fancy::bv4_fancy_rules;
 
-    use ruler::{
+    use ::enumo::{
         enumo::{self, Filter, Ruleset, Workload},
         logger,
         recipe_utils::{base_lang, iter_metric, recursive_rules, run_workload, Lang},

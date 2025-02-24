@@ -1,9 +1,9 @@
-use ruler::{
+use ::enumo::{
     enumo::{Metric, Ruleset},
     recipe_utils::{recursive_rules, Lang},
 };
 
-ruler::impl_bv!(4);
+::enumo::impl_bv!(4);
 
 pub fn bv4_rules() -> Ruleset<Bv> {
     recursive_rules(

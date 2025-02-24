@@ -1,5 +1,5 @@
 use egg::Subst;
-use ruler::{
+use ::enumo::{
     enumo::{Rule, Ruleset},
     *,
 };

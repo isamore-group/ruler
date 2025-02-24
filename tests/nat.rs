@@ -2,7 +2,7 @@ use num::{BigInt, Zero};
 use num_bigint::ToBigInt;
 use rand::{Rng, SeedableRng};
 use rand_pcg::{Pcg64, Pcg64Mcg};
-use ruler::*;
+use ::enumo::*;
 use z3::ast::Ast;
 
 egg::define_language! {
@@ -174,7 +174,7 @@ fn egg_to_z3<'a>(ctx: &'a z3::Context, expr: &[Nat]) -> z3::ast::Int<'a> {
 #[cfg(test)]
 mod test {
 
-    use ruler::{
+    use ::enumo::{
         enumo::{Filter, Metric, Ruleset, Workload},
         recipe_utils::{base_lang, iter_metric, run_workload},
     };

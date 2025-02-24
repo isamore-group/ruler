@@ -1,9 +1,9 @@
-use ruler::{
+use ::enumo::{
     enumo::{Filter, Ruleset, Workload},
     recipe_utils::{base_lang, iter_metric, recursive_rules, run_workload, Lang},
 };
 
-ruler::impl_bv!(4);
+::enumo::impl_bv!(4);
 
 pub fn bv4_fancy_rules() -> Ruleset<Bv> {
     let mut rules: Ruleset<Bv> = Ruleset::default();

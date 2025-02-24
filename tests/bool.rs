@@ -1,4 +1,4 @@
-use ruler::{enumo::Scheduler, *};
+use ::enumo::{enumo::Scheduler, *};
 use std::ops::*;
 #[path = "./recipes/bool.rs"]
 pub mod bool;
@@ -122,7 +122,7 @@ impl SynthLanguage for Bool {
 mod test {
     use super::*;
     use crate::bool::bool_rules;
-    use ruler::{
+    use ::enumo::{
         enumo::{Filter, Metric, Ruleset, Workload},
         recipe_utils::{base_lang, iter_metric, run_workload},
     };

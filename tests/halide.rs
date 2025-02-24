@@ -1,5 +1,5 @@
+use ::enumo::*;
 use num::{ToPrimitive, Zero};
-use ruler::*;
 use z3::ast::Ast;
 
 type Constant = i64;
@@ -290,7 +290,7 @@ mod test {
     use crate::Pred;
     use std::time::{Duration, Instant};
 
-    use ruler::{
+    use enumo::{
         enumo::{Filter, Metric, Ruleset, Workload},
         logger,
         recipe_utils::{recursive_rules, run_workload, Lang},

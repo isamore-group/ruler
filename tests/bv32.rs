@@ -4,9 +4,9 @@
 
 use std::time::Instant;
 
-use ruler::enumo::{Ruleset, Scheduler, Workload};
+use ::enumo::enumo::{Ruleset, Scheduler, Workload};
 
-ruler::impl_bv!(32);
+::enumo::impl_bv!(32);
 
 #[path = "./recipes/bv4_fancy.rs"]
 pub mod bv4_fancy;
@@ -48,7 +48,7 @@ pub mod test {
     use crate::bv32::bv32_rules;
     use crate::bv4_fancy::bv4_fancy_rules;
 
-    use ruler::{
+    use ::enumo::{
         enumo::{self, Filter, Ruleset, Workload},
         logger,
         recipe_utils::{base_lang, iter_metric, recursive_rules, run_workload, Lang},

@@ -1,6 +1,6 @@
 use super::*;
 use crate::test::{rational_rules, starting_exponential_rules};
-use ruler::{enumo, recipe_utils::run_fast_forwarding};
+use ::enumo::{enumo, recipe_utils::run_fast_forwarding};
 
 type Workload = enumo::Workload;
 type Ruleset = enumo::Ruleset<Exponential>;

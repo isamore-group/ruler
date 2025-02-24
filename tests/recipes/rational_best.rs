@@ -1,7 +1,7 @@
 use crate::rational_replicate::replicate_ruler1_recipe;
 
 use super::*;
-use ruler::{
+use ::enumo::{
     enumo::{Ruleset, Workload},
     recipe_utils::iter_metric,
 };

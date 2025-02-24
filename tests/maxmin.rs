@@ -7,7 +7,7 @@
 use num::{rational::Ratio, BigInt, Signed, ToPrimitive, Zero};
 use num_bigint::ToBigInt;
 use rayon::vec;
-use ruler::{
+use ::enumo::{
     enumo::{Ruleset, Scheduler, Workload},
     *,
 };
@@ -450,7 +450,7 @@ impl SynthLanguage for CaddyAndFRep {
 
 #[cfg(test)]
 mod tests {
-    use ruler::{
+    use ::enumo::{
         enumo::{Filter, Metric, Ruleset, Scheduler, Workload},
         recipe_utils::{base_lang, iter_metric, run_fast_forwarding},
     };

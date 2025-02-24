@@ -1,8 +1,8 @@
 use num::rational::Ratio;
 use num::BigInt;
 use num::{Signed, Zero};
-use ruler::enumo::Ruleset;
-use ruler::*;
+use ::enumo::enumo::Ruleset;
+use ::enumo::*;
 use std::fmt;
 use std::fmt::{Debug, Display, Formatter};
 use std::str::FromStr;
@@ -318,7 +318,7 @@ mod test {
 
     use super::*;
     use crate::trig::trig_rules;
-    use ruler::{
+    use ::enumo::{
         enumo::{Filter, Ruleset, Scheduler, Workload},
         recipe_utils::run_fast_forwarding,
         Limits,

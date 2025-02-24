@@ -2,7 +2,7 @@
 128 bit implementation of Bitvectors.
 !*/
 
-ruler::impl_bv!(128);
+::enumo::impl_bv!(128);
 
 #[path = "./recipes/bv4_fancy.rs"]
 pub mod bv4_fancy;
@@ -13,7 +13,7 @@ pub mod test {
 
     use crate::bv4_fancy::bv4_fancy_rules;
 
-    use ruler::{
+    use ::enumo::{
         enumo::{self, Ruleset},
         logger,
         recipe_utils::{recursive_rules, Lang},
