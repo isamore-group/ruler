@@ -197,7 +197,7 @@ impl SynthLanguage for egg::SymbolLang {
         false
     }
 
-    fn mk_constant(c: Self::Constant, _egraph: &mut EGraph<Self, SynthAnalysis>) -> Self {
+    fn mk_constant(c: Self::Constant) -> Self {
         Self {
             op: Symbol::from(c.to_string()),
             children: vec![],

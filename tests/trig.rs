@@ -222,7 +222,7 @@ impl SynthLanguage for Trig {
         matches!(self, Trig::RealConst(_))
     }
 
-    fn mk_constant(c: Self::Constant, _egraph: &mut EGraph<Self, SynthAnalysis>) -> Self {
+    fn mk_constant(c: Self::Constant) -> Self {
         Trig::RealConst(c)
     }
 
@@ -241,7 +241,7 @@ impl SynthLanguage for Trig {
                 Trig::Neg(i) => {
                     if let Some(x) = extract_constant(&egraph[*i].nodes) {
                         let r = Real::from((-x).to_string());
-                        to_add = Some(Self::mk_constant(r, egraph));
+                        to_add = Some(Self::mk_constant(r));
                         break;
                     }
                 }
@@ -249,7 +249,7 @@ impl SynthLanguage for Trig {
                     if let Some(x) = extract_constant(&egraph[*i].nodes) {
                         if let Some(y) = extract_constant(&egraph[*j].nodes) {
                             let r = Real::from((x + y).to_string());
-                            to_add = Some(Self::mk_constant(r, egraph));
+                            to_add = Some(Self::mk_constant(r));
                             break;
                         }
                     }
@@ -258,7 +258,7 @@ impl SynthLanguage for Trig {
                     if let Some(x) = extract_constant(&egraph[*i].nodes) {
                         if let Some(y) = extract_constant(&egraph[*j].nodes) {
                             let r = Real::from((x - y).to_string());
-                            to_add = Some(Self::mk_constant(r, egraph));
+                            to_add = Some(Self::mk_constant(r));
                             break;
                         }
                     }
@@ -267,7 +267,7 @@ impl SynthLanguage for Trig {
                     if let Some(x) = extract_constant(&egraph[*i].nodes) {
                         if let Some(y) = extract_constant(&egraph[*j].nodes) {
                             let r = Real::from((x * y).to_string());
-                            to_add = Some(Self::mk_constant(r, egraph));
+                            to_add = Some(Self::mk_constant(r));
                             break;
                         }
                     }
@@ -277,7 +277,7 @@ impl SynthLanguage for Trig {
                         if let Some(y) = extract_constant(&egraph[*j].nodes) {
                             if !y.is_zero() {
                                 let r = Real::from((x / y).to_string());
-                                to_add = Some(Self::mk_constant(r, egraph));
+                                to_add = Some(Self::mk_constant(r));
                                 break;
                             }
                         }
@@ -294,7 +294,6 @@ impl SynthLanguage for Trig {
                     if x.is_negative() || x.is_zero() {
                         let pos_id = egraph.add(Self::mk_constant(
                             Real::from((-x).to_string()),
-                            &mut egraph.clone(),
                         ));
                         let neg_id = egraph.add(Trig::Neg(pos_id));
                         egraph.union(neg_id, id);

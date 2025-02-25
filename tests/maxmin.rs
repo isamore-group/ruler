@@ -439,7 +439,7 @@ impl SynthLanguage for CaddyAndFRep {
         matches!(self, CaddyAndFRep::Lit(_))
     }
 
-    fn mk_constant(c: Self::Constant, egraph: &mut EGraph<Self, SynthAnalysis>) -> Self {
+    fn mk_constant(c: Self::Constant) -> Self {
         CaddyAndFRep::Lit(c)
     }
 

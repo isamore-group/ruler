@@ -28,6 +28,16 @@ pub fn self_product<T: Clone>(ts: &[T], n: usize) -> Vec<Vec<T>> {
     res
 }
 
+#[test]
+fn test_self_product() {
+  let ts = [0, 1, 2];
+  let vars = 3;
+  let sp = self_product(&ts, vars);
+  for cvec in sp {
+    println!("{:?}", cvec)
+  }
+}
+
 #[macro_export]
 macro_rules! map {
     ($get:ident, $a:ident => $body:expr) => {

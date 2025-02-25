@@ -208,7 +208,7 @@ impl SynthLanguage for Math {
         matches!(self, Math::Lit(_))
     }
 
-    fn mk_constant(c: Self::Constant, _egraph: &mut EGraph<Self, SynthAnalysis>) -> Self {
+    fn mk_constant(c: Self::Constant) -> Self {
         Math::Lit(c)
     }
 }
@@ -380,12 +380,12 @@ impl Math {
 
         println!("Compressing workload with {} prior rules", prior.len());
         let egraph = workload.to_egraph::<Self>();
-        let compressed = Scheduler::Compress(limits).run(&egraph, &prior);
+        let mut compressed = Scheduler::Compress(limits).run(&egraph, &prior);
 
         let mut candidates = if fast_match {
             Ruleset::fast_cvec_match(&compressed)
         } else {
-            Ruleset::cvec_match(&compressed)
+            Ruleset::cvec_match(&mut compressed)
         };
 
         let num_prior = prior.len();

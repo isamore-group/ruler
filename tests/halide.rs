@@ -140,7 +140,7 @@ impl SynthLanguage for Pred {
         matches!(self, Pred::Lit(_))
     }
 
-    fn mk_constant(c: Self::Constant, _egraph: &mut EGraph<Self, SynthAnalysis>) -> Self {
+    fn mk_constant(c: Self::Constant) -> Self {
         Pred::Lit(c)
     }
 

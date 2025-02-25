@@ -110,7 +110,7 @@ impl SynthLanguage for BvBool {
         matches!(self, BvBool::Lit(_))
     }
 
-    fn mk_constant(c: Self::Constant, _egraph: &mut EGraph<Self, SynthAnalysis>) -> Self {
+    fn mk_constant(c: Self::Constant) -> Self {
         BvBool::Num(c)
     }
 

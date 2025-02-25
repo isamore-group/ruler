@@ -113,7 +113,7 @@ impl SynthLanguage for Bool {
         matches!(self, Bool::Lit(_))
     }
 
-    fn mk_constant(c: Self::Constant, _egraph: &mut EGraph<Self, SynthAnalysis>) -> Self {
+    fn mk_constant(c: Self::Constant) -> Self {
         Bool::Lit(c)
     }
 }
@@ -145,24 +145,24 @@ mod test {
 
         let scheduler = Scheduler::Compress(Limits::synthesis());
 
-        let egraph = scheduler.run(&atoms3.to_egraph(), &all_rules);
-        let mut candidates = Ruleset::cvec_match(&egraph);
+        let mut egraph = scheduler.run(&atoms3.to_egraph(), &all_rules);
+        let mut candidates = Ruleset::cvec_match(&mut egraph);
         let rules3 = candidates.minimize(all_rules.clone(), scheduler).0;
         all_rules.extend(rules3);
 
         let atoms4 = iter_bool(4);
         assert_eq!(atoms4.force().len(), 348);
 
-        let egraph = scheduler.run(&atoms4.to_egraph(), &all_rules);
-        candidates = Ruleset::cvec_match(&egraph);
+        let mut egraph = scheduler.run(&atoms4.to_egraph(), &all_rules);
+        candidates = Ruleset::cvec_match(&mut egraph);
         let rules4 = candidates.minimize(all_rules.clone(), scheduler).0;
         all_rules.extend(rules4);
 
         let atoms5 = iter_bool(5);
         assert_eq!(atoms5.force().len(), 4599);
 
-        let egraph = scheduler.run(&atoms5.to_egraph(), &all_rules);
-        candidates = Ruleset::cvec_match(&egraph);
+        let mut egraph = scheduler.run(&atoms5.to_egraph(), &all_rules);
+        candidates = Ruleset::cvec_match(&mut egraph);
         let rules5 = candidates.minimize(all_rules.clone(), scheduler).0;
         all_rules.extend(rules5);
 

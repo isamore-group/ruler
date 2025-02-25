@@ -19,9 +19,9 @@ impl Bv {
         let t = Instant::now();
 
         let egraph = workload.to_egraph::<Self>();
-        let compressed = Scheduler::Compress(limits).run(&egraph, &prior);
+        let mut compressed = Scheduler::Compress(limits).run(&egraph, &prior);
 
-        let mut candidates = Ruleset::cvec_match(&compressed);
+        let mut candidates = Ruleset::cvec_match(&mut compressed);
 
         let num_prior = prior.len();
         let chosen = candidates.minimize(prior, Scheduler::Compress(limits)).0;
