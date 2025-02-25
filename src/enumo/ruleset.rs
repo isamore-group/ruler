@@ -1,7 +1,7 @@
 use egg::{AstSize, EClass, Extractor, RecExpr};
 use indexmap::map::{IntoIter, Iter, IterMut, Values, ValuesMut};
 use itertools::Itertools;
-use log::{info, warn};
+use log::{debug, info, warn};
 use rayon::prelude::{IntoParallelIterator, ParallelIterator};
 use std::{io::Write, sync::Arc};
 use z3::ast;
@@ -167,6 +167,13 @@ impl<L: SynthLanguage> Ruleset<L> {
   pub fn extend(&mut self, other: Self) {
     self.0.extend(other.0)
   }
+
+  // pub fn extend_shrink(self, other: Self, minimize_limits: Limits ) -> Self {
+  //   let mut news= self;
+  //   news.extend(other.clone());
+  //   news.shrink(&other, Scheduler::Compress(minimize_limits));
+  //   news
+  // }
 
   /// Partition a ruleset by applying a predicate function to each rule in the
   /// ruleset
@@ -363,6 +370,9 @@ impl<L: SynthLanguage> Ruleset<L> {
     let mut candidates = Ruleset::default();
 
     for class in egraph.classes() {
+      if !class.data.is_defined() {
+        continue;
+      }
       // if let Some(constant) = class.data.fuzz_constant() {
       //   let (_, e1) = extract.find_best(class.id);
       //   if !e1.last().unwrap().is_constant() {
@@ -375,9 +385,30 @@ impl<L: SynthLanguage> Ruleset<L> {
       //     candidates.add_from_recexprs(&e1, &expr_constant);
       //   }
       // }
-     
-          by_cvec.entry(&class.data.cvec).or_default().push(class.id);
-       
+      let mut has_constant_subexpr = false;
+
+      let (_, e) = extract.find_best(class.id);
+
+      for sub_eclass_id in egraph.lookup_expr_ids(&e).unwrap().into_iter()
+      // .dropping_back(1)
+      {
+        if extract.find_best_node(sub_eclass_id).is_constant() {
+          continue;
+        }
+        if let Some(constant) = egraph[sub_eclass_id].data.fuzz_constant() {
+          has_constant_subexpr = true;
+          info!(
+            "{} has constant subexpr: {} = {}",
+            e.to_string(),
+            extract.find_best_node(sub_eclass_id),
+            constant
+          )
+        }
+      }
+
+      if !has_constant_subexpr {
+        by_cvec.entry(&class.data.cvec).or_default().push(class.id);
+      }
     }
 
     for ids in by_cvec.values() {
