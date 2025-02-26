@@ -389,8 +389,11 @@ impl<L: SynthLanguage> Ruleset<L> {
 
       let (_, e) = extract.find_best(class.id);
 
-      for sub_eclass_id in egraph.lookup_expr_ids(&e).unwrap().into_iter()
-      // .dropping_back(1)
+      for sub_eclass_id in egraph
+        .lookup_expr_ids(&e)
+        .unwrap()
+        .into_iter()
+        .dropping_back(1)
       {
         if extract.find_best_node(sub_eclass_id).is_constant() {
           continue;
