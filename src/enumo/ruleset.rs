@@ -3,7 +3,7 @@ use indexmap::map::{IntoIter, Iter, IterMut, Values, ValuesMut};
 use itertools::Itertools;
 use log::{debug, info, warn};
 use rayon::prelude::{IntoParallelIterator, ParallelIterator};
-use std::{io::Write, sync::Arc};
+use std::{fmt::format, io::Write, sync::Arc};
 use z3::ast;
 
 use crate::{
@@ -194,8 +194,8 @@ impl<L: SynthLanguage> Ruleset<L> {
   pub fn to_file(&self, filename: &str) {
     let mut file = std::fs::File::create(filename)
       .unwrap_or_else(|_| panic!("Failed to open '{}'", filename));
-    for (name, _) in &self.0 {
-      writeln!(file, "{}", name).expect("Unable to write");
+    for (name, rule ) in &self.0 {
+      writeln!(file, "{}where{}", name, rule.condition.clone().unwrap()).expect("Unable to write");
     }
   }
 
@@ -223,10 +223,10 @@ impl<L: SynthLanguage> Ruleset<L> {
       if reverse.is_some() && self.contains(&reverse.unwrap()) {
         let reverse_name = format!("{} <=> {}", rule.rhs, rule.lhs);
         if !strs.contains(&reverse_name) {
-          strs.push(format!("{} <=> {}", rule.lhs, rule.rhs));
+          strs.push(format!("{} <=> {}where{}", rule.lhs, rule.rhs, rule.condition.clone().unwrap_or("".to_string())));
         }
       } else {
-        strs.push(name.to_string());
+        strs.push(format!("{}where{}", name, rule.condition.clone().unwrap_or("".to_string())));
       }
     }
 
@@ -443,7 +443,6 @@ impl<L: SynthLanguage> Ruleset<L> {
         } else {
           invalid.add(rule.clone());
         }
-
         // If reverse direction is also in candidates, add it at the same time
         let reverse = Rule::new(&rule.rhs, &rule.lhs);
         if let Some(reverse) = reverse {

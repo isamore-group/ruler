@@ -40,7 +40,6 @@ fn run_workload_internal<L: SynthLanguage>(
   allow_empty: bool,
 ) -> Ruleset<L> {
   let t = Instant::now();
-
   let egraph = workload.to_egraph::<L>();
   let mut compressed = Scheduler::Compress(prior_limits).run(&egraph, &prior);
 
@@ -49,7 +48,6 @@ fn run_workload_internal<L: SynthLanguage>(
   } else {
     Ruleset::cvec_match(&mut compressed)
   };
-
   let num_prior = prior.len();
   let (chosen, _) =
     candidates.minimize(prior, Scheduler::Compress(minimize_limits));
@@ -110,7 +108,8 @@ pub fn run_workload_extend<L: SynthLanguage>(
     fast_match,
     true,
   );
-
+  println!("Extended rules:");
+  new.pretty_print();
   new.extend(prior);
   new
 }

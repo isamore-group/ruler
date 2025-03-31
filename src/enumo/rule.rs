@@ -15,6 +15,8 @@ pub struct Rule<L: SynthLanguage> {
     pub rhs: Pattern<L>,
     /// egg::Rewrite
     pub rewrite: Rewrite<L, SynthAnalysis>,
+    /// condition for the rule
+    pub condition: Option<String>,
 }
 
 impl<L: SynthLanguage> Display for Rule<L> {
@@ -25,7 +27,13 @@ impl<L: SynthLanguage> Display for Rule<L> {
 
 impl<L: SynthLanguage> Rule<L> {
     pub fn from_string(s: &str) -> Result<(Self, Option<Self>), String> {
-        if let Some((l, r)) = s.split_once("=>") {
+        let (rewrite, condition) = if s.contains("where"){
+            let (rewrite, condition) = s.split_once("where").unwrap();
+            (rewrite, Some(condition.to_string()))
+        }else {
+            (s, None)
+        };
+        if let Some((l, r)) = rewrite.split_once("=>") {
             let l_pat: Pattern<L> = l.parse().unwrap();
             let r_pat: Pattern<L> = r.parse().unwrap();
 
@@ -39,6 +47,7 @@ impl<L: SynthLanguage> Rule<L> {
                     Rhs { rhs: r_pat.clone() },
                 )
                 .unwrap(),
+                condition: condition.clone(),
             };
 
             if s.contains("<=>") {
@@ -52,6 +61,7 @@ impl<L: SynthLanguage> Rule<L> {
                         Rhs { rhs: l_pat },
                     )
                     .unwrap(),
+                    condition: condition.clone(),
                 };
                 Ok((forwards, Some(backwards)))
             } else {
@@ -104,12 +114,13 @@ impl<L: SynthLanguage> Rule<L> {
         let name = format!("{} ==> {}", l_pat, r_pat);
         let rhs = Rhs { rhs: r_pat.clone() };
         let rewrite = Rewrite::new(name.clone(), l_pat.clone(), rhs).ok();
-
+        
         rewrite.map(|rw| Rule {
             name: name.into(),
             lhs: l_pat.clone(),
             rhs: r_pat.clone(),
             rewrite: rw,
+            condition: None,
         })
     }
 

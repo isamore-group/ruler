@@ -307,6 +307,7 @@ impl Math {
                 rhs,
                 name: name.into(),
                 rewrite,
+                condition: None,
             })
         }
     }

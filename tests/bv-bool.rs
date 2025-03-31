@@ -59,6 +59,7 @@ impl SynthLanguage for BvBool {
             lhs: "?a".parse().unwrap(),
             rhs: "(bv (first ?a) (second ?a))".parse().unwrap(),
             rewrite: egg::rewrite!("def-bv"; "?a" => "(bv (first ?a) (second ?a))" if is_bv_str("?a")),
+            condition: None,
         });
         rules
     }

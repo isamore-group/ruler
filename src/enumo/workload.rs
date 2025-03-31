@@ -27,7 +27,10 @@ impl Workload {
     {
         Self::Set(
             vals.into_iter()
-                .map(|x| x.as_ref().parse().unwrap())
+                .map(|x| {
+                    let x = x.as_ref().parse().unwrap();
+                    x
+                })
                 .collect(),
         )
     }
