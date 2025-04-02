@@ -195,7 +195,12 @@ impl<L: SynthLanguage> Ruleset<L> {
     let mut file = std::fs::File::create(filename)
       .unwrap_or_else(|_| panic!("Failed to open '{}'", filename));
     for (name, rule ) in &self.0 {
-      writeln!(file, "{}where{}", name, rule.condition.clone().unwrap()).expect("Unable to write");
+      // println!("writing rule {}", name);
+      if rule.condition.is_none() {
+        writeln!(file, "{}", name).expect("Unable to write");
+      } else {
+        writeln!(file, "{}where{}", name, rule.condition.clone().unwrap()).expect("Unable to write");
+      }
     }
   }
 
