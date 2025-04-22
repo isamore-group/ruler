@@ -42,13 +42,17 @@ fn run_workload_internal<L: SynthLanguage>(
   let t = Instant::now();
   let egraph = workload.to_egraph::<L>();
   let mut compressed = Scheduler::Compress(prior_limits).run(&egraph, &prior);
-
   let mut candidates = if fast_match {
     Ruleset::fast_cvec_match(&compressed)
   } else {
     Ruleset::cvec_match(&mut compressed)
   };
   let num_prior = prior.len();
+  println!(
+    "Found {} candidates ({} prior rules)",
+    candidates.len(),
+    num_prior
+  );
   let (chosen, _) =
     candidates.minimize(prior, Scheduler::Compress(minimize_limits));
   let time = t.elapsed().as_secs_f64();
@@ -65,7 +69,7 @@ fn run_workload_internal<L: SynthLanguage>(
     num_prior
   );
 
-  chosen.pretty_print();
+  // chosen.pretty_print();
 
   chosen
 }
