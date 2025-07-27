@@ -1,7 +1,10 @@
 [package]
 name = "enumo"
 version = "0.1.0"
-authors = ["Max Willsey <me@mwillsey.com>", "Chandrakana Nandi <cnandi@cs.washington.edu>"]
+authors = [
+  "Max Willsey <me@mwillsey.com>",
+  "Chandrakana Nandi <cnandi@cs.washington.edu>",
+]
 edition = "2024"
 
 [dependencies]
@@ -22,23 +25,15 @@ lazy_static = "1.4.0"
 itertools = "0.9.0"
 # fixed = "1.9.0"
 # z3 = "0.10.0"
-z3 = {version = "0.10.0", features = ["static-link-z3"]}
+z3 = { version = "0.10.0", features = ["static-link-z3"] }
 rustc-hash = "1"
 symbolic_expressions = "5"
 rayon = "1"
 smallstr = "0.3"
-[dependencies.egg]
-version = "0.10.0"
-features = ["serde-1"]
-# git = "https://github.com/egraphs-good/egg"
-# rev = "8d68c8768cc18c2eae97f970e2b4162324cee787"   # 0.7-dev before proofs
-# rev = "484fd6eec831a4078455ac47ef1172ede1b03dbf" # send sync
-# rev = "116295f5c5afc58b34c732066c2e533bc4ad2ce8" # latest
-# rev = "483876ffc7e38a3d1e55a1f249dcd7900093b99e" # use more precise analysis rebuild
-# rev = "5d12e81a43d8eb6bfa8c29b62ba766143ba54a79" # Simplify unionfind
-# rev = "e5ded849f55c735b88cc7fd8b74e111dca6685b5" # Use new rebuilding
-# rev = "18e62918ed3c7b30b55a61108f19d405d6b4c3c7" # Don't use cell
-# path = "../egg"
+egg = { git = "https://github.com/isamore-group/egg", branch = "main", features = [
+  "serde-1",
+  "lp",
+] }
 
 # Tests do a lot of work
 [profile.test]
